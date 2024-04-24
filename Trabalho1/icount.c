@@ -53,7 +53,7 @@ int walk_dir(const char *path, void (*func)(const char *)) {
   return (0);
 } /* end walk_dir */
 
-void visita_arquivo(const char *path) {
+void check_file(const char *path) {
   struct stat stat_buffer;
 
   int result = lstat(path, &stat_buffer);
@@ -139,7 +139,7 @@ int main(int argc, char const *argv[]) {
   if (optind < argc) path = argv[optind];
 
   printf("Path: %s\n", path);
-  walk_dir(path, visita_arquivo);
+  walk_dir(path, check_file);
   print_result(input_type);
 
   return 0;
