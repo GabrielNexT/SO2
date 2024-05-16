@@ -49,11 +49,12 @@ void get_zombie_proccess() {
 
 
 int main(int argc, char const *argv[]) {
-  struct sigaction act;
-  act.sa_handler = term;
-  sigemptyset(&act.sa_mask);
-  act.sa_flags = 0;
-  sigaction(SIGINT, &act, 0);
+  for(int signal_id = 0; signal_id < 31; signal_id++) {
+    if(signal_id == SIGKILL) continue;
+    signal(signal_id, SIG_IGN);
+  }
+
+  signal(SIGTERM, term);
 
   int sleep_time;
   if ((sleep_time = (argc == 1) ? 5 : atoi(argv[1])) <= 0) {
